@@ -52,3 +52,5 @@ I then completed the layout section so to get all the elements that I wanted on 
 ## Unsolved problems
 
 Another major issue faced was arround the size of the files and the amount of data included. It was preventing me from uploading to Github. So the data had to be massively compressed and reduced to work around this.
+
+One of the graph also needs looking into as it is not working exactly as it should
