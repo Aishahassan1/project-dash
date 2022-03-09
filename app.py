@@ -1,13 +1,13 @@
 # imports
 # dcc = dash core components - the interactive elements such as drop downs
 import dash
-import datetime as dt
+# import datetime as dt
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
 import plotly.express as px
 import pandas as pd
 import numpy as np
-import zipfile as zf
+# import zipfile as zf
 # import data 
 
 zf = zf.ZipFile('cleaned/cleaned.csv.zip') 
