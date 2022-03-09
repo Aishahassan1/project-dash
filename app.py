@@ -10,8 +10,8 @@ import numpy as np
 # import zipfile as zf
 # import data 
 
-# zf = zf.ZipFile('cleaned/cleaned.csv.zip') 
-# df = pd.read_csv(zf.open('cleaned.csv'), index_col=[0])
+zf = zf.ZipFile('cleaned/cleaned.csv.zip') 
+df = pd.read_csv(zf.open('cleaned.csv'), index_col=[0])
 
 # setup
 app =  dash.Dash(__name__, title='Dash App')
