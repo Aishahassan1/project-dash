@@ -7,9 +7,9 @@ from dash.dependencies import Input, Output, State
 import plotly.express as px
 import pandas as pd
 import numpy as np
-# import zipfile as zf
-# import data 
+import zipfile as zf
 
+# load data 
 zf = zf.ZipFile('cleaned/cleaned.csv.zip') 
 df = pd.read_csv(zf.open('cleaned.csv'), index_col=[0])
 
