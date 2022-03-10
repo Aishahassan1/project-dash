@@ -45,12 +45,9 @@ app.layout = html.Div([
         {'label': 'South East England', 'value': 'South East England'},
         {'label': 'North East England', 'value': 'North East England'},
         {'label': 'East of England', 'value': 'East of England'},
-        {'label': 'South West England', 'value': 'South West England'},
-        {'label': 'North West England', 'value': 'North West England'},
         {'label': 'Wales', 'value': 'Wales'},
         {'label': 'London', 'value': 'London'},
         {'label': 'West Midlands', 'value': 'West Midlands'},
-        {'label': 'Yorkshire and the Humber', 'value': 'Yorkshire and the Humber'},
         {'label': 'Northern Ireland', 'value': 'Northern Ireland'},
         {'label': 'East of England', 'value': 'East of England'},
         # to show all region data if required
