@@ -18,7 +18,6 @@ app =  dash.Dash(__name__, title='Dash App')
 server = app.server
 
 # initialize
-app = dash.Dash()
 
 # drop down below for bullet point one = I have hard coded which is ok because the values won't change --> use as justification in read me
 # layout
@@ -70,7 +69,7 @@ app.layout = html.Div([
         {'label': 'least Sales in quantity', 'value': 'Least quantity'},
         {'label': 'least Sales in amount', 'value': 'Least amount'}],
         id='most_least_sales'
-        ),    
+        )    
     ])
 
 # # callbacks -- BULLET POINT 1 least and most purchased product/product category per region
@@ -90,7 +89,6 @@ app.layout = html.Div([
 
 def purchase(button, region, most_least, prod_prod_cat):
     if button is not None:
-        
         
         # Imports cleaned data
         # df = pd.read_csv('cleaned/cleaned.csv', index_col=0)
@@ -115,7 +113,8 @@ def purchase(button, region, most_least, prod_prod_cat):
         purchases =  purchases.sort_values(by = 'amount', ascending = ascending).head(10)
         # returns graph and Div text as children 
         return px.bar(purchases, x= prod_prod_cat, y='amount'), "Purchases Graph Was plotted"
-
+    else:
+        return {}, " "
 # ----------------------------------------------------------------------
 
 # callbacks -- BULLET POINT 2 performing top and bottom 10 quantity and money made from sales
@@ -163,6 +162,8 @@ def sales(button, region, most_least,):
         # ascending = ascending simply means that it will equal to what the person selected
         sales =  sales.sort_values(by = y_axis, ascending = ascending).head(10)
         return px.bar(sales, x= 'branch_name', y=y_axis), 'Sales Graph was plotted'
+    else:
+        return {}, " "
 # ----------------------------------------------------------------------
 
 # callbacks -- BULLET POINT 3 per hour sales top and bottom 10 branches
@@ -180,34 +181,35 @@ def hourl_sales(button_click):
         # df = pd.read_csv('cleaned/cleaned.csv', index_col=0)
         # get top branches by amount
         branches = df.pivot_table(index= 'branch_name', columns= None, values= ['amount'], aggfunc= np.sum)
-    hourly_sales = []
+        hourly_sales = []
     # run loop for all branches
-    for i in range(len(branches)):
+        for i in range(len(branches)):
         # assign variable to branch names and total sales
         # i = count
-        branch_name = branches.index[i]
-        total_sales = branches.values[i][0]
-        # select data from each branch 
-        branch_data = df[df['branch_name'] == branch_name]
-        # to calculate number of hours in total - gets first and last line and assign them to datetime variable.
-        r1 = branch_data.sort_values(['year', 'month','day'])[:1]
-        r2 = branch_data.sort_values(['year', 'month','day'])[-1:]
-        first_sale_time = dt.datetime(r1['year'].values[0],r1['month'].values[0],r1['day'].values[0],r1['hour'].values[0])
-        last_sale_time = dt.datetime(r2['year'].values[0],r2['month'].values[0],r2['day'].values[0],r2['hour'].values[0])
-        # calculation to calculate total number of hours between first sale time and last sale time
-        diff = last_sale_time - first_sale_time
-        total_hours = diff.days * 24 + diff.seconds // 3600
-        # appends hourly sales array after calculating per hour sales 
-        hourly_sales.append(total_sales/total_hours)
+            branch_name = branches.index[i]
+            total_sales = branches.values[i][0]
+            # select data from each branch 
+            branch_data = df[df['branch_name'] == branch_name]
+            # to calculate number of hours in total - gets first and last line and assign them to datetime variable.
+            r1 = branch_data.sort_values(['year', 'month','day'])[:1]
+            r2 = branch_data.sort_values(['year', 'month','day'])[-1:]
+            first_sale_time = dt.datetime(r1['year'].values[0],r1['month'].values[0],r1['day'].values[0],r1['hour'].values[0])
+            last_sale_time = dt.datetime(r2['year'].values[0],r2['month'].values[0],r2['day'].values[0],r2['hour'].values[0])
+            # calculation to calculate total number of hours between first sale time and last sale time
+            diff = last_sale_time - first_sale_time
+            total_hours = diff.days * 24 + diff.seconds // 3600
+            # appends hourly sales array after calculating per hour sales 
+            hourly_sales.append(total_sales/total_hours)
 
-    # use array appended in the loop and creates a new column in the data frame
-    branches['hourly_sales'] = hourly_sales
-    # reset index and sort values by hourly sales in order of highest to lowest
-    branches = branches.reset_index().sort_values('hourly_sales', ascending = False)
-    # create graph and return graph along with the Div text as children
-    figure = px.bar(branches, x='hourly_sales', y='branch_name')
-    return figure, 'hourly_sales ploted'
-
+        # use array appended in the loop and creates a new column in the data frame
+        branches['hourly_sales'] = hourly_sales
+        # reset index and sort values by hourly sales in order of highest to lowest
+        branches = branches.reset_index().sort_values('hourly_sales', ascending = False)
+        # create graph and return graph along with the Div text as children
+        figure = px.bar(branches, x='hourly_sales', y='branch_name')
+        return figure, 'hourly_sales ploted'
+    else:
+        return {}, " "
 # ----------------------------------------------------------------------
 
 # # callbacks -- BULLET POINT 4 top and bottom 10 profitable branches
@@ -239,7 +241,8 @@ def profitable_branches(button_click):
 
         figure = px.bar(new_df.sort_values('profits').head(10), x='profits', y='branch_name')
         return figure, 'top branches profit ploted'
-
+    else:
+        return {}, " "
 # ----------------------------------------------------------------------
 
 
